@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.app {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    width: 900px;
+}
+
+.add-elements {
+    margin: .7rem 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: 70%;
+}

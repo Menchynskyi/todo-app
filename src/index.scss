@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Cantarell&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Cantarell', sans-serif;
+  background-color: rgb(41, 41, 41);
+  color: white;
+
+  #root {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+}

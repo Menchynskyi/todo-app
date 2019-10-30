@@ -1,0 +1,82 @@
+@import '../../variables';
+
+.item-list {
+    display: flex;
+    justify-content: center;
+    font-size: 1.3em;
+    border: $border;
+    border-radius: 10px;
+    background-color: $bg-color;
+    margin-top: 3rem;
+    width: 70%;
+    
+    ul {
+        display: flex;
+        flex-flow: column wrap;
+        flex-grow: 1;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: $border;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            span {
+                margin: 10px auto;
+            }
+        }
+        
+        .done-item {
+            text-decoration: line-through;
+        }
+
+        .important-item {
+            color: $color-important;
+        }
+    }
+}
+
+.buttons-group {
+    padding: 0 10px;
+    display: flex;
+    i {
+        padding: 0 10px;
+        font-size: 1.3em;
+        &.done {
+            color: $color-done;
+        }
+        &.delete {
+            color: $color-delete;
+        }
+    
+        &.important {
+            color: $color-important;
+        }
+        
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:active {
+            transform: scale(.97);
+            transition: transform .02s;
+        }
+    }
+}
+
+.message {
+    margin: 10px auto;
+    color: $color-message;
+    font-size: 1.5em;
+
+    i {
+        margin-right: 7px;
+    }
+}

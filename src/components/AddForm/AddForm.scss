@@ -1,0 +1,55 @@
+@import '../../variables';
+
+.add-form {
+    display: flex;
+    flex-grow: 1;
+    
+    input[type=text] {
+        background-color: transparent;
+        border: $border;
+        width: 100%;
+        margin-right: 5px;
+        font-size: 1em;
+        color: #ffffff;
+        padding: 10px 0 10px 20px;
+        border-radius: 10px;
+        background-color: $color-form;
+        &:focus {
+            outline: none;
+            background-color: $color-form-targ;
+        }
+      }
+}
+
+
+.add-button {
+    box-shadow: inset 0px 1px 3px 0px #2b2b2b;
+    background-color: $color-form;
+	border-radius: 5px;
+	border: $border;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 1em;
+	font-weight: bold;
+	padding: 11px 23px;
+	text-decoration: none;
+
+    &:active {
+        transform: scale(0.98);
+        transition: transform .05s;
+    }
+
+    &:hover {
+        background-color: $color-form-targ;
+    }
+    
+    &:active {
+        background-color: rgb(53, 53, 53);
+    }
+
+    &:focus {
+        outline:0;
+    }
+}
+

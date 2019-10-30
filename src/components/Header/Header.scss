@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Hammersmith+One&display=swap');
+@import '../../variables';
+
+.header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-content: center;
+    flex-grow: 1;
+    font-family: 'Hammersmith One', sans-serif;
+    font-size: 2em;
+    margin-top: 1rem;
+}
