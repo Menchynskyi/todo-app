@@ -107,11 +107,14 @@ export default class App extends Component {
         const visibleItems = this.filterItems(todos, status);
         const doneCounter = todos.filter(el => el.done).length;
         const todoCounter = todos.filter(el => !el.done).length;
+        const importantCounter = todos.filter(el => el.important).length;
 
         return (
             <div className="app">
                 <Header doneCounter={doneCounter}
-                        todoCounter={todoCounter}/>
+                        todoCounter={todoCounter}
+                        importantCounter={importantCounter}
+                        items={todos}/>
                 <div className="status-panel">
                     <SearchPanel />
                     <StatusFilter status={this.state.status}
