@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../Header/Header';
 import ItemList from '../ItemList/ItemList';
 import AddForm from '../AddForm/AddForm';
+import StatusFilter from '../StatusFilter/StatusFilter';
 import './App.scss';
 
 export default class App extends Component {
@@ -9,7 +10,8 @@ export default class App extends Component {
 
     state = {
         todos: [],
-        customLabel: ''
+        customLabel: '',
+        status: 'All'
     }
 
     componentDidMount = () => {
@@ -83,14 +85,36 @@ export default class App extends Component {
         this.setState({todos: newArr})
     }
 
+    onFilterChange = (name) => {
+        this.setState({
+            status: name
+        })
+    }
+    
+    filterItems(items, filter) {
+        if (filter === 'All') {
+            return items;
+        } else if (filter === 'Current') {
+            return items.filter((item) => !item.done);
+        } else if (filter === 'Done') {
+            return items.filter((item) => item.done);
+        }
+      }
+
     render() {
+        const { todos, status } = this.state;
+        const visibleItems = this.filterItems(todos, status);
+
         return (
             <div className="app">
                 <Header />
-                <ItemList todos={this.state.todos}
+                <StatusFilter status={this.state.status}
+                              onFilterChange={this.onFilterChange}/>
+                <ItemList todos={visibleItems}
                           onClickDone={this.onDone}
                           onClickImportant={this.onImportant}
-                          onClickDelete={this.deleteItem}/>
+                          onClickDelete={this.deleteItem}
+                          status={this.state.status}/>
                 <div className="add-elements">
                     <AddForm onItemAdded={this.addElement}/>
                 </div>

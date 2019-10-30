@@ -20,7 +20,7 @@ export default class ItemList extends Component {
                                 onClick={() => onClickDone(id)} />
                             <i className="fa fa-exclamation-circle important"
                                 onClick={() => onClickImportant(id)}/>
-                            <i className="fas fa-trash delete"
+                            <i className="fas fa-trash-alt delete"
                                 onClick={() => onClickDelete(id, todos)}/>
                         </div>
                 </li>

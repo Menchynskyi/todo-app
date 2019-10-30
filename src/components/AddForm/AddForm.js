@@ -30,7 +30,7 @@ export default class AddForm extends Component {
                        value={this.state.customLabel}/>
                 
             <button type="submit"
-                    className="add-button">ADD</button>
+                    className="add-button">Add</button>
             </form>
         );
     }
