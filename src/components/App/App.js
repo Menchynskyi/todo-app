@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import ItemList from '../ItemList/ItemList';
-import './App.scss';
 import AddForm from '../AddForm/AddForm';
+import './App.scss';
 
 export default class App extends Component {
     _id = 100;
@@ -23,7 +23,7 @@ export default class App extends Component {
     }
 
     addElement = (label) => {
-        if (!label) return;
+        if (!label || label.length > 35) return;
         this.setState(({todos}) => {
             return {
                 todos: [...todos, this.createElement(label)]
@@ -80,11 +80,7 @@ export default class App extends Component {
             ...arr.slice(0, idx),
             ...arr.slice(idx + 1)
         ];
-        this.setState(({ todos }) => {
-            return {
-                todos: newArr
-            }
-        })
+        this.setState({todos: newArr})
     }
 
     render() {

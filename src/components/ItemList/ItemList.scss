@@ -17,6 +17,16 @@
         margin: 0;
         padding: 0;
         list-style: none;
+
+        .message {
+            margin: 10px auto;
+            color: $color-message;
+            font-size: 1.5em;
+
+            i {
+                margin-right: 7px;
+            }
+        }
         
         li {
             display: flex;
@@ -31,52 +41,42 @@
             span {
                 margin: 10px auto;
             }
-        }
-        
-        .done-item {
-            text-decoration: line-through;
-        }
 
-        .important-item {
-            color: $color-important;
-        }
-    }
-}
+            .buttons-group {
+                padding: 0 10px;
+                display: flex;
+                i {
+                    padding: 0 10px;
+                    font-size: 1.3em;
+                    &.done {
+                        color: $color-done;
+                    }
+                    &.delete {
+                        color: $color-delete;
+                    }
+                
+                    &.important {
+                        color: $color-important;
+                    }
+                    
+                    &:hover {
+                        cursor: pointer;
+                    }
+            
+                    &:active {
+                        transform: scale(.97);
+                        transition: transform .02s;
+                    }
+                }
+            }
 
-.buttons-group {
-    padding: 0 10px;
-    display: flex;
-    i {
-        padding: 0 10px;
-        font-size: 1.3em;
-        &.done {
-            color: $color-done;
-        }
-        &.delete {
-            color: $color-delete;
-        }
-    
-        &.important {
-            color: $color-important;
-        }
-        
-        &:hover {
-            cursor: pointer;
-        }
+            .done-item {
+                text-decoration: line-through;
+            }
 
-        &:active {
-            transform: scale(.97);
-            transition: transform .02s;
+            .important-item {
+                color: $color-important;
+            }
         }
-    }
-}
-
-.message {
-    margin: 10px auto;
-    color: $color-message;
-    font-size: 1.5em;
-
-    i {
-        margin-right: 7px;
     }
 }

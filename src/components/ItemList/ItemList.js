@@ -6,14 +6,15 @@ export default class ItemList extends Component {
     
     renderElements(arr) {
         return arr.map(({ label, id, done, important }) => {
-            let status = '';
-            if(done) status += ' done-item';
-            if (important) status += ' important-item';
+            let styles = '';
+            if(done) styles += ' done-item';
+            if (important) styles += ' important-item';
+            
             const { onClickDone, onClickImportant, onClickDelete, todos } = this.props;
 
             return (
                 <li key={id}>
-                        <span className={status}>{label}</span>
+                        <span className={styles}>{label}</span>
                         <div className="buttons-group">
                             <i className="fas fa-check-square done"
                                 onClick={() => onClickDone(id)} />
