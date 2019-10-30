@@ -1,10 +1,8 @@
 @import '../../variables';
 
 .status-filter {
-    margin-top: 1rem;
     display: flex;
     justify-content: flex-end;
-    width: 70%;
 
     button {
         background-color: $color-form;

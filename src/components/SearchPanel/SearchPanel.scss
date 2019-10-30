@@ -1,0 +1,22 @@
+@import '../../variables';
+
+.search-panel {
+    width: 51%;
+
+    input[type=text] {
+        background-color: transparent;
+        border: $border;
+        width: 100%;
+        margin-right: 5px;
+        font-size: 1em;
+        color: #ffffff;
+        padding: 10px 20px 10px 20px;
+        border-radius: 10px;
+        background-color: $color-form;
+
+        &:focus {
+            outline: none;
+            background-color: $color-form-targ;
+        }
+      }
+}

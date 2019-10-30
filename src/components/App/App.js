@@ -4,6 +4,7 @@ import ItemList from '../ItemList/ItemList';
 import AddForm from '../AddForm/AddForm';
 import StatusFilter from '../StatusFilter/StatusFilter';
 import './App.scss';
+import SearchPanel from '../SearchPanel/SearchPanel';
 
 export default class App extends Component {
     _id = 100;
@@ -104,12 +105,18 @@ export default class App extends Component {
     render() {
         const { todos, status } = this.state;
         const visibleItems = this.filterItems(todos, status);
+        const doneCounter = todos.filter(el => el.done).length;
+        const todoCounter = todos.filter(el => !el.done).length;
 
         return (
             <div className="app">
-                <Header />
-                <StatusFilter status={this.state.status}
-                              onFilterChange={this.onFilterChange}/>
+                <Header doneCounter={doneCounter}
+                        todoCounter={todoCounter}/>
+                <div className="status-panel">
+                    <SearchPanel />
+                    <StatusFilter status={this.state.status}
+                                  onFilterChange={this.onFilterChange}/>
+                </div>
                 <ItemList todos={visibleItems}
                           onClickDone={this.onDone}
                           onClickImportant={this.onImportant}

@@ -4,10 +4,14 @@
 .header {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
-    align-content: center;
+    justify-content: space-between;
+    align-items: flex-end;
     flex-grow: 1;
-    font-family: 'Hammersmith One', sans-serif;
-    font-size: 2em;
     margin-top: 1rem;
+    width: 70%;
+
+    .logo {
+        font-family: 'Hammersmith One', sans-serif;
+        font-size: 2em;
+    }
 }

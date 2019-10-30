@@ -1,10 +1,13 @@
 import React from 'react';
+import ItemsCounter from '../ItemsCounter/ItemsCounter';
 import './Header.scss';
 
-const Header = () => {
+const Header = ({ doneCounter, todoCounter }) => {
     return (
         <div className="header">
-            <span>Todo App</span>            
+            <span className="logo">Todo App</span>
+            <ItemsCounter doneCounter={doneCounter}
+                          todoCounter={todoCounter}/>            
         </div>
     )
 }

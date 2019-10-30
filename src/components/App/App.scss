@@ -13,4 +13,12 @@
         align-items: center;
         width: 70%;
     }
+
+    .status-panel {
+        margin-top: 1rem;
+        width: 70%;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+    }
 }
