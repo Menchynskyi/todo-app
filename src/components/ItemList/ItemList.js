@@ -34,7 +34,7 @@ export default class ItemList extends Component {
 
         const message = visibleItems.length === 0 ? <span className="message">
                                                 <i className="fas fa-pen-square"/>
-                                                It's time to add new todo!
+                                                It's time to add a new todo!
                                              </span> : null;
 
         return (
