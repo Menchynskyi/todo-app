@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Message from '../Message/Message';
 
 import './ItemList.scss';
 
@@ -29,14 +30,17 @@ export default class ItemList extends Component {
     }
 
     render(){
-        const {visibleItems} = this.props;
+        const {visibleItems, allItems} = this.props;
         const items = this.renderElements(visibleItems);
 
-        const message = visibleItems.length === 0 ? <span className="message">
-                                                <i className="fas fa-pen-square"/>
-                                                It's time to add a new todo!
-                                             </span> : null;
+        let message = visibleItems.length === 0 ? <Message 
+                                                            text="It's time to add a new todo!"/>
+                                                            : null;
 
+        if (visibleItems.length === 0 && allItems.length > 0) {
+            message = <Message text="No such todos"/>
+        }
+        
         return (
             <div className="item-list">
                 <ul>

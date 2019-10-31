@@ -1,0 +1,11 @@
+@import '../../variables';
+
+.message {
+    margin: 10px auto;
+    color: $color-message;
+    font-size: 1.5em;
+
+    i {
+        margin-right: 7px;
+    }
+}
