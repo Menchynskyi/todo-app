@@ -16,7 +16,7 @@ export default class App extends Component {
         search: ''
     }
 
-    componentWillMount = () => {
+    componentDidMount = () => {
         const defaultItems = [
             this.createElement('Drink Coffee'),
             this.createElement('Build React App'),
