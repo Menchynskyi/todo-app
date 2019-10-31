@@ -12,17 +12,26 @@ export default class App extends Component {
     state = {
         todos: [],
         customLabel: '',
-        status: 'All'
+        status: 'All',
+        search: ''
     }
 
     componentDidMount = () => {
         const defaultItems = [
-            this.createElement('Drink Cofee'),
+            this.createElement('Drink Coffee'),
             this.createElement('Build React App'),
             this.createElement('Become a Senior')
         ]
 
         this.setState({todos: defaultItems})
+    }
+
+    searchFilter = (arr, search) => {
+        return arr.filter(el => el.label.toLowerCase().includes(search.toLowerCase()))
+    }
+
+    onSearch = (e) => {
+        this.setState({ search: e.target.value })
     }
 
     addElement = (label) => {
@@ -103,11 +112,11 @@ export default class App extends Component {
       }
 
     render() {
-        const { todos, status } = this.state;
-        const visibleItems = this.filterItems(todos, status);
+        const { todos, status, search } = this.state;
+        const visibleItems = this.searchFilter(this.filterItems(todos, status), search);
         const doneCounter = todos.filter(el => el.done).length;
         const todoCounter = todos.filter(el => !el.done).length;
-        const importantCounter = todos.filter(el => el.important).length;
+        const importantCounter = todos.filter(el => !el.done && el.important).length;
 
         return (
             <div className="app">
@@ -116,7 +125,8 @@ export default class App extends Component {
                         importantCounter={importantCounter}
                         items={todos}/>
                 <div className="status-panel">
-                    <SearchPanel />
+                    <SearchPanel onSearch={this.onSearch}
+                                 searchValue={search}/>
                     <StatusFilter status={this.state.status}
                                   onFilterChange={this.onFilterChange}/>
                 </div>

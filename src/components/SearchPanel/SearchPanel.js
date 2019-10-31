@@ -1,15 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import './SearchPanel.scss';
 
-export default class SearchPanel extends Component {
-    render() {
+const SearchPanel = ({ onSearch, searchValue }) => {
         return (
             <form className="search-panel">
                 <input type="text"
-                       placeholder="Search your todos">
+                       name="todos"
+                       placeholder="Search your todos..."
+                       onChange={(e) => onSearch(e)}
+                       value={searchValue}
+                       >
                 </input>
             </form>
         )
-    }
 }
+
+export default SearchPanel;
