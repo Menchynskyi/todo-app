@@ -130,7 +130,8 @@ export default class App extends Component {
                     <StatusFilter status={this.state.status}
                                   onFilterChange={this.onFilterChange}/>
                 </div>
-                <ItemList todos={visibleItems}
+                <ItemList visibleItems={visibleItems}
+                          allItems={todos}
                           onClickDone={this.onDone}
                           onClickImportant={this.onImportant}
                           onClickDelete={this.deleteItem}

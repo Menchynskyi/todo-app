@@ -10,7 +10,7 @@ export default class ItemList extends Component {
             if(done) styles += ' done-item';
             if (important) styles += ' important-item';
             
-            const { onClickDone, onClickImportant, onClickDelete, todos } = this.props;
+            const { onClickDone, onClickImportant, onClickDelete, allItems } = this.props;
 
             return (
                 <li key={id}>
@@ -21,7 +21,7 @@ export default class ItemList extends Component {
                             <i className="fa fa-exclamation-circle important"
                                 onClick={() => onClickImportant(id)}/>
                             <i className="fas fa-trash-alt delete"
-                                onClick={() => onClickDelete(id, todos)}/>
+                                onClick={() => onClickDelete(id, allItems)}/>
                         </div>
                 </li>
             )
@@ -29,10 +29,10 @@ export default class ItemList extends Component {
     }
 
     render(){
-        const {todos} = this.props;
-        const items = this.renderElements(todos);
+        const {visibleItems} = this.props;
+        const items = this.renderElements(visibleItems);
 
-        const message = todos.length === 0 ? <span className="message">
+        const message = visibleItems.length === 0 ? <span className="message">
                                                 <i className="fas fa-pen-square"/>
                                                 It's time to add new todo!
                                              </span> : null;
