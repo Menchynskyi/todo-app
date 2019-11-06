@@ -7,23 +7,35 @@ import './App.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 
 export default class App extends Component {
-    _id = 100;
-
     state = {
         todos: [],
+        id: 100,
         customLabel: '',
         status: 'All',
         search: ''
     }
 
     componentDidMount = () => {
-        const defaultItems = [
-            this.createElement('Drink Coffee'),
-            this.createElement('Build React App'),
-            this.createElement('Become a Senior')
-        ]
+        if (JSON.parse(localStorage.getItem('todos')) !== null) {
+            localStorage.getItem('todos') && this.setState({
+                todos: JSON.parse(localStorage.getItem('todos')),
+                id: JSON.parse(localStorage.getItem('id'))
+            })
+        }
+    }
 
-        this.setState({todos: defaultItems})
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.todos !== this.state.todos) {
+            localStorage.setItem('todos', JSON.stringify(this.state.todos));
+        }
+        if (prevState.todos.length !== this.state.todos.length) {
+            this.setState(({ id }) => {
+                return {
+                    id: id + 1
+                }
+            });
+            localStorage.setItem('id', JSON.stringify(this.state.id));
+        }
     }
 
     searchFilter = (arr, search) => {
@@ -44,9 +56,8 @@ export default class App extends Component {
     }
 
     createElement = (labelName = 'New Todo Item') => {
-        this._id++;
         return {
-            id: this._id,
+            id: this.state.id,
             label: labelName,
             important: false,
             done: false
