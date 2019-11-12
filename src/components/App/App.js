@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Header/Header';
 import ItemList from '../ItemList/ItemList';
 import AddForm from '../AddForm/AddForm';
@@ -6,65 +6,51 @@ import StatusFilter from '../StatusFilter/StatusFilter';
 import './App.scss';
 import SearchPanel from '../SearchPanel/SearchPanel';
 
-export default class App extends Component {
-    state = {
-        todos: [],
-        id: 100,
-        customLabel: '',
-        status: 'All',
-        search: ''
-    }
+const App = () => {
 
-    componentDidMount = () => {
-        if (JSON.parse(localStorage.getItem('todos')) !== null) {
-            localStorage.getItem('todos') && this.setState({
-                todos: JSON.parse(localStorage.getItem('todos')),
-                id: JSON.parse(localStorage.getItem('id'))
-            })
+    const [todos, setTodos] = useState([]);
+    const [id, setId] = useState(100);
+    const [status, setStatus] = useState('All');
+    const [search, setSearch] = useState('');
+    
+    useEffect(() => {
+        if (localStorage.getItem('todos') !== null || localStorage.getItem('id') !== null){
+            setTodos(JSON.parse(localStorage.getItem('todos')));
+            setId(JSON.parse(localStorage.getItem('id')));
         }
+        console.log('test')
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+        localStorage.setItem('id', JSON.stringify(id));
+        console.log('test2');
+    }, [id, todos]);
+
+    const searchFilter = (arr, search) => {
+        return arr.filter(el => el.label.toLowerCase().includes(search.toLowerCase()));
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.todos !== this.state.todos) {
-            localStorage.setItem('todos', JSON.stringify(this.state.todos));
-        }
-        if (prevState.todos.length !== this.state.todos.length) {
-            this.setState(({ id }) => {
-                return {
-                    id: id + 1
-                }
-            });
-            localStorage.setItem('id', JSON.stringify(this.state.id));
-        }
+    const onSearch = (e) => {
+        setSearch(e.target.value);
     }
 
-    searchFilter = (arr, search) => {
-        return arr.filter(el => el.label.toLowerCase().includes(search.toLowerCase()))
-    }
-
-    onSearch = (e) => {
-        this.setState({ search: e.target.value })
-    }
-
-    addElement = (label) => {
+    const addElement = (label) => {
         if (!label || label.length > 35) return;
-        this.setState(({todos}) => {
-            return {
-                todos: [...todos, this.createElement(label)]
-            }
-        })
+        setTodos([...todos, createElement(label)])
     }
 
-    createElement = (labelName = 'New Todo Item') => {
+    const createElement = (labelName = 'New Todo Item') => {
+        setId(id + 1);
         return {
-            id: this.state.id,
+            id,
             label: labelName,
             important: false,
             done: false
         }
     }
     
-    toggleProperty = (arr, id, propName) => {
+    const toggleProperty = (arr, id, propName) => {
         const idx = arr.findIndex((item) => item.id === id);
         const oldItem = arr[idx];
         const value = !oldItem[propName];
@@ -75,44 +61,30 @@ export default class App extends Component {
           item,
           ...arr.slice(idx + 1)
         ];
-      };
+    };
 
-    onDone = (id) => {
-        this.setState(({ todos }) => {
-            const newTodos = this.toggleProperty(todos, id, 'done');
-
-            return {
-                todos: newTodos
-            }
-        })
+    const onDone = (id) => {
+        setTodos(toggleProperty(todos, id, 'done'));
     }
 
-    onImportant = (id) => {
-        this.setState(({ todos }) => {
-            const newTodos = this.toggleProperty(todos, id, 'important');
-
-            return {
-                todos: newTodos
-            }
-        })
+    const onImportant = (id) => {
+        setTodos(toggleProperty(todos, id, 'important'));
     }
 
-    deleteItem = (id, arr) => {
+    const deleteItem = (id, arr) => {
         const idx = arr.findIndex((item) => item.id === id);
         const newArr = [
             ...arr.slice(0, idx),
             ...arr.slice(idx + 1)
         ];
-        this.setState({todos: newArr})
+        setTodos(newArr);
     }
 
-    onFilterChange = (name) => {
-        this.setState({
-            status: name
-        })
+    const onFilterChange = (name) => {
+        setStatus(name);
     }
     
-    filterItems(items, filter) {
+    const filterItems = (items, filter) => {
         if (filter === 'All') {
             return items;
         } else if (filter === 'Current') {
@@ -120,37 +92,37 @@ export default class App extends Component {
         } else if (filter === 'Done') {
             return items.filter((item) => item.done);
         }
-      }
-
-    render() {
-        const { todos, status, search } = this.state;
-        const visibleItems = this.searchFilter(this.filterItems(todos, status), search);
-        const doneCounter = todos.filter(el => el.done).length;
-        const todoCounter = todos.filter(el => !el.done).length;
-        const importantCounter = todos.filter(el => !el.done && el.important).length;
-
-        return (
-            <div className="app">
-                <Header doneCounter={doneCounter}
-                        todoCounter={todoCounter}
-                        importantCounter={importantCounter}
-                        items={todos}/>
-                <div className="status-panel">
-                    <SearchPanel onSearch={this.onSearch}
-                                 searchValue={search}/>
-                    <StatusFilter status={this.state.status}
-                                  onFilterChange={this.onFilterChange}/>
-                </div>
-                <ItemList visibleItems={visibleItems}
-                          allItems={todos}
-                          onClickDone={this.onDone}
-                          onClickImportant={this.onImportant}
-                          onClickDelete={this.deleteItem}
-                          status={this.state.status}/>
-                <div className="add-elements">
-                    <AddForm onItemAdded={this.addElement}/>
-                </div>
-            </div>
-        )
     }
+
+    const visibleItems = searchFilter(filterItems(todos, status), search);
+    const doneCounter = todos.filter(el => el.done).length;
+    const todoCounter = todos.filter(el => !el.done).length;
+    const importantCounter = todos.filter(el => !el.done && el.important).length;
+
+    return (
+        <div className="app">
+            <Header doneCounter={doneCounter}
+                    todoCounter={todoCounter}
+                    importantCounter={importantCounter}
+                    items={todos}/>
+            <div className="status-panel">
+                <SearchPanel onSearch={onSearch}
+                                searchValue={search}/>
+                <StatusFilter status={status}
+                                onFilterChange={onFilterChange}/>
+            </div>
+            <ItemList visibleItems={visibleItems}
+                        allItems={todos}
+                        onClickDone={onDone}
+                        onClickImportant={onImportant}
+                        onClickDelete={deleteItem}
+                        status={status}/>
+            <div className="add-elements">
+                <AddForm onItemAdded={addElement}/>
+            </div>
+        </div>
+    )
 }
+
+
+export default App;
