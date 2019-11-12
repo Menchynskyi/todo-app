@@ -34,7 +34,6 @@ const App = () => {
     }
 
     const addElement = (label) => {
-        if (!label || label.length > 35) return;
         setTodos([...todos, createElement(label)])
     }
 

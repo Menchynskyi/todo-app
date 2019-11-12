@@ -14,9 +14,18 @@
         padding: 10px 0 10px 20px;
         border-radius: 10px;
         background-color: $color-form;
+
         &:focus {
             outline: none;
             background-color: $color-form-targ;
+        }
+
+        &.not-validated {
+            border-color: $color-delete;
+
+            &::placeholder {
+                color: $color-delete-text;
+            }
         }
       }
 

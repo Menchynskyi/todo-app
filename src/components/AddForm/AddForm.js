@@ -4,6 +4,7 @@ import './AddForm.scss';
 
 const AddForm = ({ onItemAdded }) => {
     const [customLabel, setCustomLabel] = useState('');
+    const [validation, setValidation] = useState({ class: '', placeholder: 'What needs to be done' });
 
     const onInput = (e) => {
         setCustomLabel(e.target.value);
@@ -11,15 +12,25 @@ const AddForm = ({ onItemAdded }) => {
 
     const onLabelSubmit = (e) => {
         e.preventDefault();
-        setCustomLabel('');
-        onItemAdded(customLabel);
+        setValidation({ class: '', placeholder: 'What needs to be done'});
+
+        if (customLabel.length === 0) {
+            setValidation({ class: 'not-validated', placeholder: 'Field is empty, please enter your todo' });
+            setCustomLabel('');
+        } else if (customLabel.length > 25) {
+            setValidation({ class: 'not-validated', placeholder: '' });
+        } else {
+            onItemAdded(customLabel);
+            setCustomLabel('');
+        }
     }
 
     return (
         <form className="add-form"
                 onSubmit={onLabelSubmit}>
-            <input type="text"
-                    placeholder="What needs to be done" 
+            <input  className={validation.class}
+                    type="text"
+                    placeholder={validation.placeholder} 
                     onChange={(e) => onInput(e)}
                     value={customLabel}/>
             
