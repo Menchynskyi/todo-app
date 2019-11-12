@@ -18,13 +18,11 @@ const App = () => {
             setTodos(JSON.parse(localStorage.getItem('todos')));
             setId(JSON.parse(localStorage.getItem('id')));
         }
-        console.log('test')
     }, [])
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
         localStorage.setItem('id', JSON.stringify(id));
-        console.log('test2');
     }, [id, todos]);
 
     const searchFilter = (arr, search) => {
