@@ -1,39 +1,43 @@
-import React, {Component} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import './StatusFilter.scss';
 
-export default class StatusFilter extends Component {
-    state = {
-        buttons: [
-            {name: 'All'},
-            {name: 'Current'},
-            {name: 'Done'}
-        ]
-    }
+const StatusFilter = ({ status, onFilterChange }) => {
+  const buttonsNames = [
+    { name: 'All' },
+    { name: 'Current' },
+    { name: 'Done' }
+  ];
 
-    renderButtons(arr) {
+  const renderButtons = (arr) => {
+    return arr.map(({ name }) => {
+      const isActive = status === name;
+      const statusStyle = isActive ? 'current' : '';
 
-        return arr.map(({ name }) => {
-            const isActive = this.props.status === name;
-            const statusStyle = isActive ? 'current' : '';
+      return (
+        <button className={statusStyle}
+          key={name}
+          onClick={() => onFilterChange(name)}
+        >
+          {name}
+        </button>
+      );
+    });
+  };
 
-            return (
-                <button className={statusStyle}
-                        key={name}
-                        onClick={() => this.props.onFilterChange(name)}>
-                    {name}
-                </button>
-            )
-        })
-    }
+  const buttons = renderButtons(buttonsNames);
 
-    render() {
-        const buttons = this.renderButtons(this.state.buttons);
+  return (
+    <div className="status-filter">
+      {buttons}
+    </div>
+  );
+};
 
-        return (
-            <div className="status-filter">
-                {buttons}
-            </div>
-        )
-    }
-}
+StatusFilter.propTypes = {
+  status: PropTypes.string,
+  onFilterChange: PropTypes.func.isRequired
+};
+
+export default StatusFilter;
